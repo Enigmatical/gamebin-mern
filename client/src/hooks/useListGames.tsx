@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import type { Game } from "../types";
 
-const useListGames = () => {
-  const [refresh, setRefresh] = useState<boolean>(true);
+const useListGames = (
+  refresh: boolean,
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
@@ -16,9 +18,9 @@ const useListGames = () => {
     if (refresh) {
       fetchGames();
     }
-  }, [refresh]);
+  }, [refresh, setRefresh]);
 
-  return { games, setRefresh };
+  return games;
 };
 
 export default useListGames;
